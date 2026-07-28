@@ -57,7 +57,7 @@ We use a local PostgreSQL database running in Docker. Configure your `profiles.y
 * **Password:** `dataops_pass_2024`
 * **Default Schema:** `DEV`
 
-*(To start the database, run `docker compose up -d postgres` from the project root.)*
+*(To start the database, run `docker compose up -d postgres` from the project root. then run 'dbt debug')*
 
 ---
 

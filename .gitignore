@@ -1,5 +1,4 @@
 # Environment
-.env
 venv/
 .claude/
 
@@ -38,15 +37,10 @@ dbt_learning/logs/
 scripts/generate_seeds.py
 assignments_and_evaluation.md
 
-# Mentor-only: reference solution models (the answer key students build themselves).
-# The example_* guides stay tracked; these are the completed solutions.
-dbt_learning/models/schema.yml
-dbt_learning/models/stage/stg_*.sql
-dbt_learning/models/dev/dim_*.sql
-dbt_learning/models/dev/fct_*.sql
-dbt_learning/macros/net_amount.sql
-dbt_learning/tests/test_*.sql
-dbt_learning/snapshots/snap_products.sql
+# Mentor-only: reference solution files, moved here (out of dbt_learning/) so
+# their filenames no longer collide with the identically-named files mentees
+# are assigned to create and commit in their own forks.
+answer_key/
 
 # Mentor-only: only Week 1 is released to mentees for now. Later weeks stay
 # local until it's time to hand them out.
@@ -60,3 +54,6 @@ week_6/
 airflow/dags/dbt_pipeline.py
 dbt_learning/docs/airflow_overview.md
 dbt_learning/docs/pipeline_retrospective.md
+
+# Mentor-only: walks through Week 2 solution logic in detail — not released yet.
+Week1_Recap_Week2_Guide.docx
