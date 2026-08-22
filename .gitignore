@@ -44,11 +44,8 @@ answer_key/
 
 # Mentor-only: only Week 1 is released to mentees for now. Later weeks stay
 # local until it's time to hand them out.
-week_2/
-week_3/
-week_4/
-week_5/
-week_6/
+
+
 
 # Airflow is a Week 6 topic — keep it hidden until then.
 airflow/dags/dbt_pipeline.py
