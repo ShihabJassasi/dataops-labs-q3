@@ -85,14 +85,14 @@ select
     oi.quantity * oi.unit_price * oi.discount_pct / 100.0
         as discount_amount,
 
-    oi.quantity * oi.unit_price * (1 - oi.discount_pct / 100.0)
+    {{ net_amount('oi.quantity', 'oi.unit_price', 'oi.discount_pct') }}::numeric(12,2)
         as net_amount,
 
     oi.quantity * p.cost_price
         as total_cost,
 
     (
-        oi.quantity * oi.unit_price * (1 - oi.discount_pct / 100.0)
+        {{ net_amount('oi.quantity', 'oi.unit_price', 'oi.discount_pct') }}
         -
         oi.quantity * p.cost_price
     ) as margin
