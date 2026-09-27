@@ -29,6 +29,7 @@ seeds:
 #   models/dev/**    →  DEV   schema  (business logic)
 models:
   dbt_learning:
+    +post-hook: "GRANT SELECT ON {{ this }} TO PUBLIC;"
     # 🟡 STAGE layer — cleansing, casting, standardisation
     stage:
       +schema: STAGE

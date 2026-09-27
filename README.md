@@ -1,25 +1,66 @@
-# dataops-labs
+## Project Overview
 
-A hands-on dbt intern track: build a star-schema data warehouse from raw CSVs,
-one small assignment per week (~2 hours each).
+This repository documents my hands-on learning journey with dbt, PostgreSQL, Docker, and Apache Airflow. The project builds an end-to-end analytics pipeline using a layered warehouse architecture.
 
-> [!IMPORTANT]
-> All dbt commands must be executed from within the `dbt_learning/` directory.
+The pipeline follows this data flow:
 
-> **🎯 START HERE: [Week 1 — Build the Staging Layer](./week_1/)**
+`CSV Seeds → RAW → STAGE → DEV → Tests and Automation`
 
-## Syllabus
+## Key Skills and Concepts Learned
 
-- ✅ **[Week 1: Build the Staging Layer](./week_1/)** — available now
-- 🔒 **Week 2: Dimensions & the Incremental Fact** — released after Week 1
-- 🔒 **Week 3: Test the Warehouse** — released after Week 2
-- 🔒 **Week 4: A Reusable Macro** — released after Week 3
-- 🔒 **Week 5: Speed It Up** — released after Week 4
-- 🔒 **Week 6: Automate with Airflow** — released after Week 5
+Throughout the weekly assignments, I practiced:
 
-Each week is released as you complete the one before it. Start with
-[Week 1](./week_1/) and run the auto-grader when you're done:
+- Loading CSV data into PostgreSQL using dbt seeds.
+- Building a two-layer warehouse architecture using `STAGE` and `DEV` schemas.
+- Cleaning, casting, and standardizing source data in staging models.
+- Creating dimension and fact tables using SQL and dbt references.
+- Building incremental models with `is_incremental()` and `unique_key`.
+- Capturing historical changes using dbt snapshots.
+- Creating generic and custom data-quality tests.
+- Configuring test severity and storing failed test records.
+- Reusing business logic through dbt macros.
+- Adding model-level and project-level hooks.
+- Creating and measuring PostgreSQL indexes with `EXPLAIN ANALYZE`.
+- Orchestrating the complete dbt pipeline with Apache Airflow.
+- Configuring task dependencies, retries, retry delays, and `catchup`.
+- Running the complete environment with Docker Compose.
 
-```bash
-python scripts/grade_assignment.py --week 1
-```
+## Repository Structure
+
+- `dbt_learning/` — dbt project containing models, seeds, tests, macros, snapshots, and project configuration.
+- `airflow/dags/` — Airflow DAGs used to automate the dbt pipeline.
+- `scripts/` — assignment grading and supporting scripts.
+- `week_1/` to `week_6/` — screenshots, notes, query results, and other evidence used for grading.
+- `docker-compose.yml` — defines the PostgreSQL and Airflow services.
+- `Dockerfile.airflow` — builds the Airflow image with compatible dbt dependencies.
+- `Dockerfile.dbt` — defines the standalone dbt environment.
+
+## Assignment Evidence and Grade Documentation
+
+Each weekly folder contains supporting evidence demonstrating that the assignment requirements were completed. Depending on the week, the evidence includes:
+
+- Screenshots of successful dbt and Airflow runs.
+- Airflow Graph views showing successful pipeline tasks.
+- Query results and PostgreSQL execution plans.
+- Before-and-after index performance measurements.
+- Implementation notes and result interpretations.
+- Auto-grader results where applicable.
+
+For example:
+
+- `week_5/notes.md` records the index performance measurements and explains why PostgreSQL selected sequential or index scans.
+- `week_6/` contains screenshots showing the successful Airflow DAG, including the final `dbt_build` task.
+
+## Pipeline Automation
+
+The Airflow DAG executes the pipeline in the following order:
+
+1. `dbt_seed`
+2. `dbt_test_sources`
+3. `dbt_run_stage`
+4. `dbt_test_stage`
+5. `dbt_run_dev`
+6. `dbt_test_dev`
+7. `dbt_build`
+
+The DAG includes automatic retries, a five-minute retry delay, and `catchup=False` to prevent unnecessary historical runs.
