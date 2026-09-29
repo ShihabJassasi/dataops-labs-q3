@@ -48,7 +48,6 @@ answer_key/
 
 
 # Airflow is a Week 6 topic — keep it hidden until then.
-airflow/dags/dbt_pipeline.py
 dbt_learning/docs/airflow_overview.md
 dbt_learning/docs/pipeline_retrospective.md
 
